@@ -144,7 +144,7 @@
       button.disabled = true;
       button.textContent = "Processing...";
 
-      fetch(scriptURL, {
+      fetch('https://script.google.com/macros/s/AKfycbymFDr7TrM440n2eO4emEh2rRiRbzzT9MgKQDDKMjMeE5AyXMfKTK7HfzfZ02tL5KDjmw/exec', {
         method: "POST",
         body: new URLSearchParams({
           kit: kitName,
