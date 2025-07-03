@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment | SatvikKit</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fffbe7;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #333;
+      text-align: center;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 20px 0 5px;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background-color: #f0f8ff;
+    }
+
+    .summary {
+      margin-top: 20px;
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .summary p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+
+    .qr-section {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .qr-section img {
+      width: 200px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: #c14900;
+      color: white;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #status {
+      margin-top: 15px;
+      color: green;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Complete Your Payment</h2>
+
+    <div class="summary">
+      <p><strong>Kit Name:</strong> <span id="kitName"></span></p>
+      <p><strong>Base Price:</strong> ₹<span id="kitPrice"></span></p>
+      <p><strong>Delivery Charge:</strong> ₹<span id="deliveryCharge">30</span></p>
+      <hr>
+      <p><strong>Total:</strong> ₹<span id="totalAmount"></span></p>
+    </div>
+
+    <label for="method">Select Payment Method:</label>
+    <select id="method" required>
+      <option value="">-- Choose Payment Method --</option>
+      <option value="UPI">Pay via UPI</option>
+      <option value="COD">Cash on Delivery</option>
+    </select>
+
+    <div class="qr-section" id="qrGroup">
+      <img src="https://your-qr-image-link-here.png" alt="UPI QR Code">
+      <p><strong>Scan and Pay</strong></p>
+      <p>Or pay to UPI ID: <strong>satvikkit@upi</strong></p>
+    </div>
+
+    <button id="requestPaymentBtn">Place Order</button>
+
+    <p id="status"></p>
+  </div>
+
+  <script>
+    const kitName = localStorage.getItem("kit_name") || "Unknown Kit";
+    const basePrice = parseInt(localStorage.getItem("kit_price")) || 0;
+    const deliveryCharge = 30;
+    const total = basePrice + deliveryCharge;
+
+    document.getElementById("kitName").textContent = kitName;
+    document.getElementById("kitPrice").textContent = basePrice;
+    document.getElementById("totalAmount").textContent = total;
+
+    const methodSelect = document.getElementById("method");
+    const qrGroup = document.getElementById("qrGroup");
+    const button = document.getElementById("requestPaymentBtn");
+
+    methodSelect.addEventListener("change", function () {
+      qrGroup.style.display = this.value === "UPI" ? "block" : "none";
+    });
+
+    button.addEventListener("click", function () {
+      const method = methodSelect.value;
+      const upi = "satvikkit@upi";
+      const scriptURL = "https://script.google.com/macros/s/AKfycbymFDr7TrM440n2eO4emEh2rRiRbzzT9MgKQDDKMjMeE5AyXMfKTK7HfzfZ02tL5KDjmw/exec";
+
+      if (!method) {
+        alert("Please select a payment method");
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Processing...";
+
+      fetch(scriptURL, {
+        method: "POST",
+        body: new URLSearchParams({
+          kit: kitName,
+          amount: total,
+          method: method,
+          upi: method === "UPI" ? upi : "N/A"
+        })
+      })
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("status").textContent = "✅ Order placed successfully!";
+        localStorage.clear();
+        setTimeout(() => {
+          window.location.href = "thankyou.html";
+        }, 2000);
+      })
+      .catch(err => {
+        document.getElementById("status").textContent = "❌ Failed to connect.";
+        button.disabled = false;
+        button.textContent = "Place Order";
+      });
+    });
+  </script>
+
+</body>
+</html>

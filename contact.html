@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us | SatvikKit</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #fffbe7;
+      color: #333;
+      position: relative;
+    }
+
+    /* Logo Background (watermark-style) */
+    body::before {
+  content: "";
+  background-image: url('images/downloaded-image.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 250px;
+  opacity: 0.12; /* 🔥 Increase opacity here */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+    header {
+      background-color: #c14900;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      z-index: 1;
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h2 {
+      color: #c14900;
+      margin-top: 20px;
+      font-size: 22px;
+    }
+
+    .contact-box {
+      background: #fff;
+      border-left: 5px solid #c14900;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .contact-box p, .contact-box ul {
+      margin: 8px 0;
+      font-size: 16px;
+    }
+
+    .team {
+      margin-top: 40px;
+    }
+
+    .team ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .team li {
+      font-size: 16px;
+      padding: 5px 0;
+    }
+
+    footer {
+      background-color: #f0d6b0;
+      padding: 15px;
+      text-align: center;
+      margin-top: 50px;
+      font-size: 14px;
+      z-index: 1;
+      position: relative;
+    }
+
+    @media screen and (max-width: 600px) {
+      header h1 {
+        font-size: 22px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      body::before {
+        background-size: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Contact SatvikKit</h1>
+  </header>
+
+  <div class="container">
+    <div class="contact-box">
+      <h2>Need Help or Have a Query?</h2>
+      <p><strong>Email:</strong> <a href="mailto:satvikkit23@gmail.com">satvikkit23@gmail.com</a></p>
+      <p><strong>Phone:</strong></p>
+      <ul>
+        <li>📞 Krish: +91 9876543210</li>
+        <li>📞 Devender: +91 9123456780</li>
+        <li>📞 Roshan: +91 9988776655</li>
+      </ul>
+    </div>
+
+    <div class="team">
+      <h2>Meet Our Team</h2>
+      <ul>
+        <li>👨‍💻 Krish – Website & Creative Lead</li>
+        <li>📦 Devender – Inventory & Delivery</li>
+        <li>📞 Roshan – Customer Support & Marketing</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 SatvikKit. All rights reserved.
+  </footer>
+
+</body>
+</html>

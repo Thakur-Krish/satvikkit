@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Place Order - Satvik Kit</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fef6e4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      max-width: 500px;
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #444;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+      background: #f9f9f9;
+    }
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      background-color: #b3541e;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #944311;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Place Your Order</h2>
+    <form id="orderForm">
+      <label for="kit">Kit Name</label>
+      <input type="text" name="kit" id="kit" readonly />
+
+      <label for="price">Kit Price (₹)</label>
+      <input type="text" name="price" id="price" readonly />
+
+      <label for="name">Your Name</label>
+      <input type="text" name="name" id="name" required />
+
+      <label for="phone">Phone Number</label>
+      <input type="text" name="phone" id="phone" required />
+
+      <label for="address">Delivery Address</label>
+      <textarea name="address" id="address" rows="3" required></textarea>
+
+      <button type="submit">Place Order</button>
+    </form>
+  </div>
+
+  <script>
+    // 1. Auto-fill kit name and price from localStorage
+    const kitData = JSON.parse(localStorage.getItem('satvikkit_products'));
+    const selectedIndex = localStorage.getItem('selected_kit_index');
+    const selectedKit = kitData[selectedIndex];
+
+    document.getElementById("kit").value = selectedKit.name;
+    document.getElementById("price").value = selectedKit.price;
+
+    // 2. Form Submit Handler
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+
+      // Save for payment.html
+      localStorage.setItem("kit_name", formData.get("kit"));
+      localStorage.setItem("kit_price", formData.get("price"));
+
+      // Send to Google Apps Script
+      fetch("https://script.google.com/macros/s/AKfycbymFDr7TrM440n2eO4emEh2rRiRbzzT9MgKQDDKMjMeE5AyXMfKTK7HfzfZ02tL5KDjmw/exec", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.text())
+      .then(data => {
+        alert("✅ Order placed successfully!");
+        window.location.href = "payment.html";
+      })
+      .catch(err => {
+        alert("❌ Error placing order. Please try again.");
+        console.error(err);
+      });
+    });
+  </script>
+</body>
+</html>
+

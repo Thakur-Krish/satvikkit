@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satvik Pooja Kits</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #fffaf0;
+      padding: 2rem;
+    }
+    h1 {
+      text-align: center;
+      color: #b45309;
+      margin-bottom: 2rem;
+    }
+    .kits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .kit {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .kit img {
+      width: 100%;
+      border-radius: 8px;
+      height: 180px;
+      object-fit: cover;
+    }
+    .kit h3 {
+      margin: 0.5rem 0 0.3rem;
+      font-size: 1.1rem;
+      color: #92400e;
+    }
+    .kit p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .price {
+      font-weight: bold;
+      margin: 0.5rem 0;
+      color: #d97706;
+    }
+    button {
+      background-color: #b45309;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: auto;
+    }
+    button:hover {
+      background-color: #92400e;
+    }
+  </style>
+</head>
+<body>
+  <h1>Available Satvik Pooja Kits</h1>
+  <div class="kits" id="kitsContainer">
+    <!-- Dynamic kits will appear here -->
+  </div>
+
+  <script>
+    const container = document.getElementById("kitsContainer");
+    const kits = JSON.parse(localStorage.getItem("satvikkit_products")) || [];
+
+    kits.forEach((kit, index) => {
+      const card = document.createElement("div");
+      card.classList.add("kit");
+      card.innerHTML = `
+        <img src="${kit.images[0]}" alt="kit image" />
+        <h3>${kit.name}</h3>
+        <p>${kit.description.slice(0, 80)}...</p>
+        <div class="price">₹${kit.price}</div>
+        <button onclick="viewKit(${index})">View Details</button>
+      `;
+      container.appendChild(card);
+    });
+
+    function viewKit(index) {
+      localStorage.setItem("selected_kit_index", index);
+      window.location.href = "kit-detail.html";
+    }
+  </script>
+</body>
+</html>

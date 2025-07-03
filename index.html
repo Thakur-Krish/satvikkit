@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SatvikKit | Complete Pooja Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Karma&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="top-banner">
+    🚚 Free Same-Day Delivery in Delhi | 100% Satvik Products | Pooja Kits from ₹199 Only
+  </div>
+
+  <header class="navbar">
+    <div class="container">
+      <div class="logo"><img src="images/downloaded-image.png" alt=""></div>
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="kits.html">Pooja Kits</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <main class="hero-section">
+    <div class="hero-content">
+      <h1>Bring Home the Divine</h1>
+      <p>Your Complete Satvik Pooja Kits Delivered</p>
+      <a href="kits.html" class="btn">Explore Kits</a>
+    </div>
+  </main>
+
+  <section class="highlight-section">
+    <h2>Why SatvikKit?</h2>
+    <div class="features">
+      <div class="feature-box">100% Satvik Items</div>
+      <div class="feature-box">Same-Day Delivery (Delhi)</div>
+      <div class="feature-box">Includes Pooja Instructions</div>
+    </div>
+  </section>
+
+  <section class="featured-kits">
+    <h2>Top Pooja Kits</h2>
+    <div class="kit-cards">
+      <div class="kit-card">
+        <img src="images/kit1.jpg" alt="Griha Pravesh Kit">
+        <h3>Griha Pravesh Kit</h3>
+        <p>Includes Gangajal, Roli, Kapoor, Havan Samagri & more</p>
+        <span class="price">₹299</span>
+      </div>
+      <div class="kit-card">
+        <img src="images/kit2.jpg" alt="Satyanarayan Kit">
+        <h3>Satyanarayan Kit</h3>
+        <p>Perfect for Satyanarayan Pooja and Katha</p>
+        <span class="price">₹349</span>
+      </div>
+      <div class="kit-card">
+        <img src="images/kit3.jpg" alt="Havan Samagri Kit">
+        <h3>Havan Samagri Kit</h3>
+        <p>Complete Havan Kit with all essentials</p>
+        <span class="price">₹249</span>
+      </div>
+    </div>
+    <a href="kits.html" class="btn">View All Kits</a>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 SatvikKit. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

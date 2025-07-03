@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Product | SatvikKit Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fff7e6, #ffe0b2);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+    h1 {
+      text-align: center;
+      color: #b45309;
+      margin-bottom: 1.5rem;
+    }
+    form label {
+      font-weight: 600;
+      display: block;
+      margin-top: 1rem;
+      color: #5b2c01;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #d97706;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    input[type="file"] {
+      border: none;
+      padding-left: 0;
+    }
+    button {
+      width: 100%;
+      background: #b45309;
+      color: white;
+      padding: 12px;
+      border: none;
+      margin-top: 2rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #92400e;
+    }
+    .note {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #777;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Add New Pooja Kit</h1>
+    <form id="productForm">
+      <label for="name">Kit Name:</label>
+      <input type="text" id="name" name="name" placeholder="e.g. Griha Pravesh Kit" required>
+
+      <label for="price">Price (₹):</label>
+      <input type="number" id="price" name="price" placeholder="e.g. 299" required>
+
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" placeholder="Brief about this kit..." required></textarea>
+
+      <label for="images">Upload Images:</label>
+      <input type="file" id="images" name="images[]" accept="image/*" multiple required>
+
+      <button type="submit">✅ Submit Product</button>
+    </form>
+
+    <div class="note">
+      You can upload multiple images directly from your device.
+      <br/>
+      Saved to your browser (LocalStorage).
+    </div>
+  </div>
+
+  <script>
+    function readImages(files) {
+      const promises = [];
+      for (let i = 0; i < files.length; i++) {
+        promises.push(new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(files[i]);
+        }));
+      }
+      return Promise.all(promises);
+    }
+
+    document.getElementById("productForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const price = document.getElementById("price").value;
+      const description = document.getElementById("description").value;
+      const images = document.getElementById("images").files;
+
+      if (images.length === 0) {
+        alert("Please upload at least one image.");
+        return;
+      }
+
+      readImages(images).then(imageList => {
+        const newProduct = {
+          name,
+          price,
+          description,
+          images: imageList
+        };
+
+        const existing = JSON.parse(localStorage.getItem("satvikkit_products")) || [];
+        existing.push(newProduct);
+        localStorage.setItem("satvikkit_products", JSON.stringify(existing));
+
+        alert("✅ Product added successfully!");
+        document.getElementById("productForm").reset();
+      }).catch(() => {
+        alert("❌ Error uploading images.");
+      });
+    });
+  </script>
+
+</body>
+</html>

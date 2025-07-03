@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | SatvikKit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fff7e6, #ffe0b2);
+      min-height: 100vh;
+      padding: 2rem;
+      color: #5b2c01;
+    }
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 1rem;
+      color: #b45309;
+    }
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .buttons a {
+      display: block;
+      text-decoration: none;
+      padding: 1rem;
+      border-radius: 8px;
+      background-color: #b45309;
+      color: white;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    .buttons a:hover {
+      background-color: #92400e;
+    }
+    .info {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+    @media (min-width: 600px) {
+      .buttons {
+        flex-direction: row;
+        justify-content: center;
+      }
+      .buttons a {
+        flex: 1;
+        margin: 0 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Welcome, Admin 🙏</h1>
+    <p>Manage your Satvik Pooja Kits below:</p>
+
+    <div class="buttons">
+      <a href="add-product.html">➕ Add New Kit</a>
+      <a href="view-products.html">📦 View All Kits</a>
+    </div>
+
+    <div class="info">
+      <p>You can upload <strong>multiple images</strong> per kit (free).</p>
+      <p>Use <strong>Cloudinary</strong> or <strong>imgbb</strong> for image hosting.</p>
+    </div>
+  </div>
+
+</body>
+</html>
