@@ -156,9 +156,10 @@
       .then(res => res.text())
       .then(data => {
         document.getElementById("status").textContent = "✅ Order placed successfully!";
-        localStorage.clear();
+        localStorage.removeItem("kit_name");
+        localStorage.removeItem("kit_price");
         setTimeout(() => {
-          window.location.href = "thankyou.html";
+          window.location.href = "Thankyou.html";
         }, 2000);
       })
       .catch(err => {
